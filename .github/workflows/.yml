@@ -23,4 +23,4 @@ jobs:
         run: dotnet restore WebApp
 
       - name: Build project
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build WebApp --no-restore --configuration Release
