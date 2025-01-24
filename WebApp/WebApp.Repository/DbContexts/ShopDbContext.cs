@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApp.Domain;
+using WebApp.Repository.Data;
 
 namespace WebApp.Repository.DbContexts
 {
@@ -11,6 +12,9 @@ namespace WebApp.Repository.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.CategorySeed();
+            modelBuilder.OrderSeed();
+            modelBuilder.ProductSeed();
             base.OnModelCreating(modelBuilder);
         }
     }
