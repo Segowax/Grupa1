@@ -12,9 +12,7 @@ namespace WebApp.Repository.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.CategorySeed();
-            modelBuilder.OrderSeed();
-            modelBuilder.ProductSeed();
+           
             base.OnModelCreating(modelBuilder);
         }
     }
