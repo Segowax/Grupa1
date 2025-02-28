@@ -1,0 +1,66 @@
+@page "/sensor"
+@inject HttpClient Http
+
+<h1>Dane z Sensorów</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (sensors is not null && sensors.Any())
+        {
+            foreach (var sensor in sensors)
+            {
+                <tr>
+                    <td>@sensor.Id</td>
+                    <td>@sensor.Name</td>
+                    <td>@sensor.Value</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="3">Brak danych</td></tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<SensorData> sensors = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+
+            sensors = new List<SensorData>
+            {
+                new SensorData { Id = 1, Name = "Czujnik Temp", Value = 22.5 },
+                new SensorData { Id = 2, Name = "Czujnik Wilgotności", Value = 60.2 }
+            };
+
+            // sensors = await Http.GetFromJsonAsync<List<SensorData>>("Sensor/GetAll");
+
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Błąd podczas pobierania danych: {ex.Message}");
+        }
+    }
+
+    public class SensorData
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Value { get; set; }
+    }
+
+    
+}
+
