@@ -1,5 +1,6 @@
 @page "/sensor"
-@inject HttpClient Http
+
+@inject IHttpClientFactory HttpFactory
 
 <h1>Dane z Sensorów</h1>
 
@@ -25,7 +26,7 @@
         }
         else
         {
-            <tr><td colspan="3">Brak danych</td></tr>
+            <tr><td colspan="3">Błąd połączenia</td></tr>
         }
     </tbody>
 </table>
@@ -37,16 +38,8 @@
     {
         try
         {
-
-            sensors = new List<SensorData>
-            {
-                new SensorData { Id = 1, Name = "Czujnik Temp", Value = 22.5 },
-                new SensorData { Id = 2, Name = "Czujnik Wilgotności", Value = 60.2 }
-            };
-
-            // sensors = await Http.GetFromJsonAsync<List<SensorData>>("Sensor/GetAll");
-
-
+            var httpClient = HttpFactory.CreateClient("nieWiem");
+            sensors = await httpClient.GetFromJsonAsync<List<SensorData>>("api/Sensor/GetAll");
         }
         catch (Exception ex)
         {
@@ -58,9 +51,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Value { get; set; }
+        public object Value { get; set; }
     }
-
-    
 }
-
